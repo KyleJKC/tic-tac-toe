@@ -8,6 +8,7 @@
 git clone https://github.com/KyleJKC/tic-tac-toe.git && cd tic-tac-toe
 mkdir build && cd build
 cmake ..
+make
 ./tic-tac-toe
 ```
 
