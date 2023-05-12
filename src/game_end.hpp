@@ -1,4 +1,8 @@
-bool game_over(char board[3][3]) {
+#ifndef TIC_TAC_TOE_GAME_END_HPP
+#define TIC_TAC_TOE_GAME_END_HPP
+
+bool game_end(char board[3][3]) {
+    bool draw = true;
 
     // Horizontal
     if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][0] != '_') {
@@ -9,7 +13,7 @@ bool game_over(char board[3][3]) {
         return true;
     }
 
-    // Vertical
+        // Vertical
     else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[0][0] != '_') {
         return true;
     } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[0][1] != '_') {
@@ -18,16 +22,30 @@ bool game_over(char board[3][3]) {
         return true;
     }
 
-    // Diagonal
+        // Diagonal
     else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '_') {
         return true;
     } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '_') {
         return true;
     }
 
-    // Not over yet, continue
-    else {
-        return false;
+    // Deal with draw
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (board[i][j] == '_') {
+                draw = false;
+                break;
+            }
+        }
     }
 
+    if (draw) {
+        return true;
+    }
+
+    // Not over yet, continue
+    return false;
+
 }
+
+#endif //TIC_TAC_TOE_GAME_END_HPP
