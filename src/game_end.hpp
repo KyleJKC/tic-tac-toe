@@ -1,32 +1,32 @@
 #ifndef TIC_TAC_TOE_GAME_END_HPP
 #define TIC_TAC_TOE_GAME_END_HPP
 
-bool game_end(char board[3][3]) {
+std::string game_ending(char board[3][3]) {
     bool draw = true;
 
     // Horizontal
     if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][0] != '_') {
-        return true;
+        return "true";
     } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][0] != '_') {
-        return true;
+        return "true";
     } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][0] != '_') {
-        return true;
+        return "true";
     }
 
         // Vertical
     else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[0][0] != '_') {
-        return true;
+        return "true";
     } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[0][1] != '_') {
-        return true;
+        return "true";
     } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[0][2] != '_') {
-        return true;
+        return "true";
     }
 
         // Diagonal
     else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != '_') {
-        return true;
+        return "true";
     } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != '_') {
-        return true;
+        return "true";
     }
 
     // Deal with draw
@@ -40,11 +40,11 @@ bool game_end(char board[3][3]) {
     }
 
     if (draw) {
-        return true;
+        return "draw";
     }
 
     // Not over yet, continue
-    return false;
+    return "false";
 
 }
 
