@@ -23,9 +23,10 @@ make
 ./tic-tac-toe
 ```
 
-## Progress
+## Change Log & Progress
 
 **First Week: Created a frame for the game**
 
 **Second Week: Created a computer opponent, keep optimizing the program**
 
+**Third Week: Optimized the structure of the code, added multiplayer(not finished yet)**
