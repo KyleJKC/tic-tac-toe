@@ -1,7 +1,39 @@
-#ifndef TIC_TAC_TOE_GAME_END_HPP
-#define TIC_TAC_TOE_GAME_END_HPP
+#ifndef TIC_TAC_TOE_GAME_UTILS_HPP
+#define TIC_TAC_TOE_GAME_UTILS_HPP
 
-std::string game_ending(char board[3][3]) {
+#include <bits/stdc++.h>
+
+// Seed the random num generator
+std::random_device seed;
+std::mt19937 rand_num(seed());
+
+struct opponent {
+    static int x() {
+        return rand_num() % 3;
+    };
+
+    static int y() {
+        return rand_num() % 3;
+    };
+};
+
+char player = 'O', computer = 'X', board[3][3] = {{'_', '_', '_'},
+                                                  {'_', '_', '_'},
+                                                  {'_', '_', '_'}};
+
+int input_x, input_y, game_mode;
+std::string last_move;
+
+auto board_render = []() {
+    for (auto &i: board) {
+        for (auto &j: i) {
+            std::cout << j << " ";
+        }
+        std::cout << std::endl;
+    }
+};
+
+auto game_ending = []() {
     bool draw = true;
 
     // Horizontal
@@ -30,9 +62,9 @@ std::string game_ending(char board[3][3]) {
     }
 
     // Deal with draw
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (board[i][j] == '_') {
+    for (auto &i: board) {
+        for (auto &j: i) {
+            if (j == '_') {
                 draw = false;
                 break;
             }
@@ -46,6 +78,18 @@ std::string game_ending(char board[3][3]) {
     // Not over yet, continue
     return "false";
 
-}
+};
 
-#endif //TIC_TAC_TOE_GAME_END_HPP
+auto winner = []() {
+    if (game_ending() == "true") {
+        if (last_move == "player") {
+            return "player";
+        } else {
+            return "computer";
+        }
+    } else {
+        return "draw";
+    }
+};
+
+#endif //TIC_TAC_TOE_GAME_UTILS_HPP

@@ -3,4 +3,4 @@ project(Tic_Tac_Toe)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Tic_Tac_Toe src/main.cpp src/game_end.hpp src/opponent.hpp)
+add_executable(Tic_Tac_Toe src/main.cpp src/game_utils.hpp src/game_mode.hpp src/lib.hpp)

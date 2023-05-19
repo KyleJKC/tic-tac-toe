@@ -1,94 +1,35 @@
-#include <iostream>
-#include <unistd.h>
-#include <cstdlib>
-#include <ctime>
-#include "game_end.hpp"
-
-struct opponent {
-    int x() {
-        return rand() % 3;
-    };
-
-    int y() {
-        return rand() % 3;
-    };
-};
+#include "lib.hpp"
 
 int main() {
-    char player = 'O', computer = 'X', board[3][3] = {{'_', '_', '_'},
-                                                      {'_', '_', '_'},
-                                                      {'_', '_', '_'}};
 
-    int input_x, input_y;
-    std::string last_move;
+    //Select Game Mode
+    std::cout << "Tic-Tac-Toe game, do you want to play this yourself or with your friend?" << std::endl;
+    std::cout << "1) Single Player    2) Multiplayer" << std::endl;
 
-    // Seed the rand num generator
-    srand(time(nullptr));
+    std::cin >> game_mode;
+
+    // Clear the screen before get started
+    system("clear");
 
     // Main loop
-    while (game_ending(board) == "false") {
-
-        //Render game board
-        for (auto &i: board) {
-            for (auto &j: i) {
-                std::cout << j << " ";
-            }
-            std::cout << "\n";
-        }
-
-        // Player's turn
-        std::cout<<"Enter your move (row column): ";
-        std::cin >> input_x >> input_y;
-        board[input_x - 1][input_y - 1] = player;
-        last_move = "player";
-        system("clear");
-        if (game_ending(board) == "true") {
-            break;
-        }
-
-        // Re-render game board
-        for (auto &i: board) {
-            for (auto &j: i) {
-                std::cout << j << " ";
-            }
-            std::cout << "\n";
-        }
-
-        // Wait 2 sec
-        std::cout << "My turn, thinking..." << "\n";
-        sleep(2);
-        system("clear");
-
-        // Computer's turn
-        opponent comp;
-        int comp_x, comp_y;
-
-        do {
-            comp_x = comp.x();
-            comp_y = comp.y();
-        } while (board[comp_x][comp_y] != '_');
-
-        board[comp_x][comp_y] = computer;
-        last_move = "computer";
-
-    }
-
-    // Check who wins
-    for (auto &i: board) {
-        for (auto &j: i) {
-            std::cout << j << " ";
-        }
-        std::cout << "\n";
-    }
-    if (game_ending(board) == "true") {
-        if (last_move == "player") {
-            std::cout << "You Win!";
-            return 0;
-        } else {
-            std::cout << "You Lose!";
-            return 0;
-        }
+    if (game_mode == 1) {
+        single_player();
+    } else if (game_mode == 2) {
+        multi_player();
     } else {
+        std::cout << "Invalid game mode, type your choice again" << std::endl;
+    }
+
+    // Re-render game board
+    board_render();
+
+    if (strcmp(winner(), "player") == 0) {
+        std::cout << "You Win!";
+        return 0;
+    } else if (strcmp(winner(), "computer") == 0) {
+        std::cout << "You Lose!";
+        return 0;
+    } else if (strcmp(winner(), "draw") == 0) {
         std::cout << "Draw!";
         return 0;
     }
