@@ -1,7 +1,7 @@
 #ifndef TIC_TAC_TOE_GAME_UTILS_HPP
 #define TIC_TAC_TOE_GAME_UTILS_HPP
 
-#include <bits/stdc++.h>
+#include "lib.hpp"
 
 // Seed the random num generator
 std::random_device seed;
@@ -17,9 +17,9 @@ struct opponent {
     };
 };
 
-char player = 'O', computer = 'X', board[3][3] = {{'_', '_', '_'},
-                                                  {'_', '_', '_'},
-                                                  {'_', '_', '_'}};
+char player1 = 'O', player2 = 'X', computer = 'X', board[3][3] = {{'_', '_', '_'},
+                                                                  {'_', '_', '_'},
+                                                                  {'_', '_', '_'}};
 
 int input_x, input_y, game_mode;
 std::string last_move;
@@ -80,15 +80,59 @@ auto game_ending = []() {
 
 };
 
-auto winner = []() {
-    if (game_ending() == "true") {
-        if (last_move == "player") {
-            return "player";
+auto print_winner = []() {
+    // Single Player
+    if (game_mode == 1) {
+        if (strcmp(game_ending(), "true") == 0) {
+            if (last_move == "player1") {
+                std::cout << "You Win!";
+            } else {
+                std::cout << "You Lose!";
+            }
         } else {
-            return "computer";
+            std::cout << "Draw!";
         }
+    }
+    // Multiplayer
+    else {
+        if (strcmp(game_ending(), "true") == 0) {
+            if (last_move == "player1") {
+                std::cout << "Player 1 Wins!";
+            } else {
+                std::cout << "Player 2 Wins!";
+            }
+        } else {
+            std::cout << "Draw!";
+        }
+    }
+};
+
+auto is_empty = [](int x, int y){
+    if(board[x - 1][y - 1]=='_'){
+        return true;
     } else {
-        return "draw";
+        return false;
+    }
+};
+
+
+auto input = [](char player){
+    if(game_mode==1) {
+        std::cout << "Enter your move (row column): ";
+    } else {
+        if(player == player1){
+            std::cout << "Player 1, Enter your move (row column): ";
+        } else {
+            std::cout << "Player 2, Enter your move (row column): ";
+        }
+    }
+    std::cin >> input_x >> input_y;
+    if(is_empty(input_x, input_y)) {
+        board[input_x - 1][input_y - 1] = player;
+        return 0;
+    } else{
+        std::cout << "Invalid Move" << std::endl;
+        return -1;
     }
 };
 

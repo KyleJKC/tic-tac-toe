@@ -23,15 +23,8 @@ int main() {
     // Re-render game board
     board_render();
 
-    if (strcmp(winner(), "player") == 0) {
-        std::cout << "You Win!";
-        return 0;
-    } else if (strcmp(winner(), "computer") == 0) {
-        std::cout << "You Lose!";
-        return 0;
-    } else if (strcmp(winner(), "draw") == 0) {
-        std::cout << "Draw!";
-        return 0;
-    }
+    print_winner();
+
+    return 0;
 
 }
